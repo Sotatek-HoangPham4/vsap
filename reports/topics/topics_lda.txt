@@ -1,0 +1,15 @@
+Topic 0:
+điểm, 10, rẻ, good, truyện, giá, mua, hay, chất_lượng, tốt
+
+Topic 1:
+seal, móp, tặng, mua, df, sốc, bọc, sao, truyện, chống
+
+Topic 2:
+cái, màu, quá, giao, đặt, mua, dùng, nhận, sáng, đèn
+
+Topic 3:
+chất_lượng, hay, đúng, mới, truyện, cẩn_thận, đóng_gói, đẹp, nhanh, giao
+
+Topic 4:
+giấy, người, nội_dung, thích, truyện, với, mua, hay, đọc, ok
+
