@@ -101,7 +101,7 @@ python -m src.crawlers.tiki_sentiment.scripts.export_labeled_reviews
 # 📊 5. Run Dashboard
 
 ```bash
-streamlit run dashboard/streamlit_app.py
+streamlit run src/dashboard/streamlit_app.py
 ```
 
 ---
