@@ -69,7 +69,7 @@ pip install -r requirements.txt
 # 🕷️ 1. Crawl Data
 
 ```bash
-python -m crawlers.tiki_sentiment.main
+python -m src.crawlers.tiki_sentiment.main
 ```
 
 ---
@@ -77,13 +77,7 @@ python -m crawlers.tiki_sentiment.main
 # 🧱 2. Create Database Tables (Seed)
 
 ```bash
-python -m crawlers.tiki_sentiment.scripts.create_tables
-```
-
-or
-
-```bash
-python crawlers/tiki_sentiment/scripts/create_tables.py
+python -m src.crawlers.tiki_sentiment.scripts.create_tables
 ```
 
 ---
