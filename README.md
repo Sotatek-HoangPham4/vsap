@@ -1,5 +1,3 @@
-Dưới đây là phiên bản **đã convert sạch thành 1 file `.md` chuẩn (copy dùng được ngay)**:
-
 ```markdown
 # 📊 Tiki Sentiment Analysis System
 
