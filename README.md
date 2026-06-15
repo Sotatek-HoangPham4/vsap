@@ -55,7 +55,7 @@ python -m venv .venv
 ### For crawler module
 
 ```bash
-pip install -r crawlers/tiki_sentiment/requirements.txt
+pip install -r src/crawlers/tiki_sentiment/requirements.txt
 ```
 
 ### For full project
