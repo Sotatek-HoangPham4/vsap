@@ -1,4 +1,3 @@
-```markdown
 # 📊 Tiki Sentiment Analysis System
 
 End-to-end system for crawling product reviews, sentiment labeling, machine learning training, topic modeling, and business analytics dashboard.
@@ -20,21 +19,20 @@ This project includes:
 ---
 
 # 📁 Project Structure (simplified)
-```
 
+```
 src/
 ├── crawlers/
-│ └── tiki*sentiment/
-│ ├── main.py
-│ ├── scripts/
-│ └── app/
+│   └── tiki_sentiment/
+│       ├── main.py
+│       ├── scripts/
+│       └── app/
 ├── models/
 ├── topic_modeling/
 ├── pipelines/
 ├── dashboard/
-└── run*\*.py
-
-````
+└── run_*.py
+```
 
 ---
 
@@ -44,7 +42,7 @@ src/
 
 ```bash
 python -m venv .venv
-````
+```
 
 ## 2. Activate environment (Windows PowerShell)
 
@@ -248,9 +246,5 @@ streamlit run dashboard/streamlit_app.py
 
 # 👨‍💻 Author
 
-Sentiment Analysis System for Business Intelligence
+Sentiment Analysis System for Business Intelligence  
 Built with Python, SQLAlchemy, Streamlit, and Machine Learning pipelines.
-
-```
-
-```
