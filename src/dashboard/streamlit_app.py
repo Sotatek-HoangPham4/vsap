@@ -1,37 +1,132 @@
-import sys
-from pathlib import Path
-import asyncio
 import streamlit as st
+import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.append(str(ROOT))
+st.set_page_config(page_title="Sentiment Analytics", layout="wide")
 
-from src.analytics.aggregator import AnalyticsAggregator
-from src.data.preprocess import DataPreprocessor
-from src.data.loader import load_labeled_reviews
+st.title("📊 Business Analytics Dashboard")
 
+# =====================
+# LOAD DATA
+# =====================
+df = pd.read_csv("data/interim/dashboard_data.csv")
 
-@st.cache_data
-def load_data():
-    return asyncio.run(load_data_async())
+# =====================
+# CLEAN DATA
+# =====================
+df["sentiment"] = df["sentiment"].fillna("unknown")
 
+# =====================
+# KPI SECTION
+# =====================
+st.subheader("📌 Key Metrics")
 
-async def load_data_async():
-    df = await load_labeled_reviews()
-    df = DataPreprocessor().transform(df)
-    return df
+total_reviews = len(df)
+positive = (df["sentiment"] == "positive").mean()
+negative = (df["sentiment"] == "negative").mean()
 
+total_categories = df["category"].nunique() if "category" in df.columns else 0
+total_products = df["product_id"].nunique() if "product_id" in df.columns else 0
 
-st.set_page_config(page_title="Sentiment Dashboard", layout="wide")
+col1, col2, col3 = st.columns(3)
 
-df = load_data()
+col1.metric("Total Reviews", total_reviews)
+col2.metric("Positive %", f"{positive:.2%}")
+col3.metric("Negative %", f"{negative:.2%}")
 
-agg = AnalyticsAggregator(df)
+col4, col5 = st.columns(2)
 
-st.title("📊 Sentiment Analytics Dashboard")
+col4.metric("Total Categories", total_categories)
+col5.metric("Total Products", total_products)
 
-st.metric("Total Reviews", agg.total_reviews())
-st.metric("Positive %", agg.positive_ratio())
-st.metric("Negative %", agg.negative_ratio())
+# =====================
+# CATEGORY ANALYSIS
+# =====================
+st.subheader("📦 Category Sentiment Analysis")
 
-st.line_chart(agg.sentiment_trend())
+if "category" in df.columns:
+    category_stats = (
+        df.groupby("category")["sentiment"]
+        .value_counts(normalize=True)
+        .unstack()
+        .fillna(0)
+    )
+
+    st.dataframe(category_stats)
+
+else:
+    st.warning("⚠️ Chưa có cột category")
+
+# =====================
+# PRODUCT ANALYSIS
+# =====================
+st.subheader("🧾 Reviewed Products")
+
+if "product_id" in df.columns:
+
+    if "product_name" in df.columns:
+        product_stats = (
+            df.groupby(["product_id", "product_name"])
+            .size()
+            .reset_index(name="review_count")
+            .sort_values("review_count", ascending=False)
+        )
+    else:
+        product_stats = (
+            df.groupby("product_id")
+            .size()
+            .reset_index(name="review_count")
+            .sort_values("review_count", ascending=False)
+        )
+
+    st.dataframe(product_stats)
+
+else:
+    st.warning("⚠️ Thiếu product_id")
+
+# =====================
+# CATEGORY → PRODUCT COUNT
+# =====================
+st.subheader("📊 Products per Category")
+
+if "category" in df.columns and "product_id" in df.columns:
+
+    category_product_stats = (
+        df.groupby("category")["product_id"]
+        .nunique()
+        .reset_index(name="unique_products")
+        .sort_values("unique_products", ascending=False)
+    )
+
+    st.dataframe(category_product_stats)
+
+else:
+    st.warning("⚠️ Thiếu category hoặc product_id")
+
+# =====================
+# SELLER ANALYSIS (SAFE)
+# =====================
+st.subheader("🏪 Seller Analysis")
+
+if "seller" in df.columns:
+
+    seller_stats = (
+        df.groupby("seller")["sentiment"]
+        .value_counts(normalize=True)
+        .unstack()
+        .fillna(0)
+    )
+
+    st.dataframe(seller_stats)
+
+else:
+    st.warning("⚠️ Chưa có seller name → fallback seller_id")
+
+    if "seller_id" in df.columns:
+        seller_stats = (
+            df.groupby("seller_id")["sentiment"]
+            .value_counts(normalize=True)
+            .unstack()
+            .fillna(0)
+        )
+
+        st.dataframe(seller_stats)

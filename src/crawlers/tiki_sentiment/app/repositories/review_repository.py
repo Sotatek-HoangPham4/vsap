@@ -2,6 +2,8 @@ from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 
 from app.models.review import Review
+from app.models.product import Product
+from app.models.category import Category
 from app.models.sentiment_label import SentimentLabel
 
 
@@ -44,17 +46,39 @@ class ReviewRepository:
         await session.execute(stmt)
 
     @staticmethod
-    async def get_batch(session, limit: int = 1000, offset: int = 0):
+    async def get_batch(session, offset: int = 0):
         stmt = (
             select(Review)
-            .limit(limit)
             .offset(offset)
         )
 
         result = await session.execute(stmt)
         return result.scalars().all()
-
     
+    @staticmethod
+    async def get_dashboard_data(session):
+
+        stmt = (
+            select(
+                Review.id.label("id"),
+                Review.product_id.label("product_id"),
+                Product.name.label("product_name"),
+                Review.rating,
+                Review.title,
+                Review.content,
+                Review.review_created_time,
+
+                Category.name.label("category"),
+                SentimentLabel.sentiment.label("sentiment"),
+            )
+            .join(Product, Review.product_id == Product.id)
+            .join(Category, Product.category_id == Category.id)
+            .join(SentimentLabel, SentimentLabel.review_id == Review.id)
+        )
+
+        result = await session.execute(stmt)
+        return result.mappings().all()
+
     @staticmethod
     async def get_labeled_reviews(session, limit: int | None = None):
         stmt = (

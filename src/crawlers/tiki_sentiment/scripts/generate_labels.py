@@ -40,8 +40,7 @@ async def main():
     async with AsyncSessionLocal() as session:
 
         reviews = await ReviewRepository.get_batch(
-            session=session,
-            limit=1000,
+            session=session
         )
 
         count = 0
