@@ -61,19 +61,18 @@ class ReviewRepository:
         stmt = (
             select(
                 Review.id.label("id"),
-                Review.product_id.label("product_id"),
+                Review.product_id,
                 Product.name.label("product_name"),
                 Review.rating,
                 Review.title,
                 Review.content,
                 Review.review_created_time,
-
                 Category.name.label("category"),
                 SentimentLabel.sentiment.label("sentiment"),
             )
             .join(Product, Review.product_id == Product.id)
             .join(Category, Product.category_id == Category.id)
-            .join(SentimentLabel, SentimentLabel.review_id == Review.id)
+            .outerjoin(SentimentLabel, SentimentLabel.review_id == Review.id)
         )
 
         result = await session.execute(stmt)

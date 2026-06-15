@@ -17,6 +17,7 @@ transformers
 datasets
 accelerate
 sentencepiece
+seaborn
 
 shap
 lime
