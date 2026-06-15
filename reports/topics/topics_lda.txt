@@ -1,15 +1,15 @@
 Topic 0:
-is, review, chất_lượng, truyện, tốt, cẩn_thận, đóng_gói, đẹp, nhanh, giao
+giày, ổn, quá, chống, cao_cấp, nữ, màu, da, nam, dùng
 
 Topic 1:
-hộp, móp, luôn, seal, sốc, gì, df, bọc, chống, truyện
+hoạt_động, quá, trong, nước, ổn, ml, máy, chính, hãng, dùng
 
 Topic 2:
-xịn, vải, với, tuyệt_vời, giá, good, thích, chất_lượng, tốt, ok
+inox, nhiều, đồ_chơi, quá, cao_cấp, gì, để, dùng, chính, hãng
 
 Topic 3:
-mới, bìa, cuốn, giấy, nội_dung, đẹp, đọc, mua, truyện, hay
+chất_lượng, hay, truyện, đóng_gói, ok, mua, tốt, nhanh, đẹp, giao
 
 Topic 4:
-màu, nhận, đặt, dùng, quá, đúng, giao, sáng, đèn, mua
+hộp, mức, đá, hoạt_động, quá, ổn, áo, mm, đèn, dùng
 
